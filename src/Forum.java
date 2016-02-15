@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,10 +9,30 @@ import java.util.Scanner;
  */
 public class Forum {
     public static void main(String[] args) throws FileNotFoundException {
+        ArrayList<Post> posts = readFile();
+
+
+
+
+
+        Scanner consoleScanner = new Scanner(System.in);
+
+        int replyId = -1;
+        while (true) {
+            //loop over posts and print the ones with the right replyId
+            printPosts(posts, replyId); //method defined below outside main method
+            //ask the user to type a new reply id
+            System.out.println("Type the id you want to see replies to:");
+            replyId = Integer.valueOf(consoleScanner.nextLine());
+
+        }
+
+
+
+    }
+
+    public static ArrayList<Post> readFile() throws FileNotFoundException { //read all the posts into memory (line by line)
         ArrayList<Post> posts = new ArrayList<>();
-
-
-        //read all the posts into memory (line by line)
         File f = new File("posts.txt");
         Scanner fileScanner = new Scanner(f);
         while (fileScanner.hasNext()) {
@@ -21,25 +42,15 @@ public class Forum {
             posts.add(post); //put into array list
 
         }
-        Scanner consoleScanner = new Scanner(System.in);
-
-        int replyId = -1;
-        while (true) {
-            //loop overposts and print the ones with the right replyId
-            int id = 0;
-            for (Post post : posts) {
-                if (post.replyId == replyId) {
-                    System.out.printf("(%d) %s by %s\n", id, post.text, post.author);
-                }
-                id++;
+        return posts;
+    }
+    public static void printPosts(ArrayList<Post> posts,int replyId) {
+        int id = 0;
+        for (Post post : posts) {
+            if (post.replyId == replyId) {
+                System.out.printf("(%d) %s by %s\n", id, post.text, post.author);
             }
-            //ask the user to type a new reply id
-            System.out.println("Type the id you want to see replies to:");
-            replyId = Integer.valueOf(consoleScanner.nextLine());
-
+            id++;
         }
-
-
-
     }
 }
