@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Forum {
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<Post> posts = readFile();
+        ArrayList<Post> posts = readFile(); //captures return value of method, declare variable and set it equal to method, value saved in posts
 
 
 
@@ -30,9 +30,9 @@ public class Forum {
 
 
     }
-
+//arrraylist becomes return type
     public static ArrayList<Post> readFile() throws FileNotFoundException { //read all the posts into memory (line by line)
-        ArrayList<Post> posts = new ArrayList<>();
+        ArrayList<Post> posts = new ArrayList<>(); //initializes array list in read file method
         File f = new File("posts.txt");
         Scanner fileScanner = new Scanner(f);
         while (fileScanner.hasNext()) {
